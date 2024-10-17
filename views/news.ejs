@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <%- include("../partials/link.ejs") %>
+
+  <body>
+    <%- include ("../partials/navbar.ejs") %> <%- include
+    ("../partials/background.ejs") %>
+
+    <div class="panel mx-auto w-75">
+      <div class="panel-body p-4">
+        <form method="post">
+          <small class="form-text text-light">Attention: le titre ne doit pas contenir les caractères < et >. ( Utilisez / pour aller a la ligne)</small>          
+          <div class="form-group">
+            <label for="title">Titre:</label>
+            <input type="text" class="form-control" id="title" name="title" pattern="^[^<>]+$">
+          </div>
+          <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea class="form-control" id="description" name="description" pattern="^[^<>]+$"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="link">Image:</label>
+            <input type="text" class="form-control" id="link" name="link" pattern="^[^<>]+$">
+          </div>
+          <div class="form-group">
+            <label for="username">Pseudo:</label>
+            <input type="text" class="form-control" id="username" name="username" pattern="^[^<>]+$">
+          </div>
+          <div class="form-group">
+            <label for="link">Avatar:</label>
+            <input type="text" class="form-control" id="avatar" name="avatar" pattern="^[^<>]+$">
+          </div>
+          <div class="form-group">
+            <label for="linkName">Nom du lien:</label>
+            <input type="text" class="form-control" id="linkName" name="linkName" pattern="^[^<>]+$">
+            <label for="linkUrl">URL du lien:</label>
+            <input type="text" class="form-control" id="linkUrl" name="linkUrl" pattern="^[^<>]+$">
+          </div>
+          <button type="submit" class="btn btn-primary">Envoyer</button>
+        </form>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script
+      src="https://kit.fontawesome.com/15198d5ddf.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/script.js"></script>
+  </body>
+</html>
+
+</rewritten_selection_following_instructions>

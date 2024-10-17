@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<%- include("../partials/link.ejs") %>
+
+  <body>
+    <%- include ("../partials/navbar.ejs") %> <%- include ("../partials/background.ejs") %>
+
+        <main class="mx-3">
+         
+          <section class="news mt-5">
+            <div class="container mx-4" style="max-width:98%;">
+              <div class="row mb-3">
+                <div class="col-lg-12">
+                  <h2 class="text-left">Annonces</h2>
+                </div>
+              </div>
+
+              <div class="d-flex flex-wrap">
+                <% news.forEach(res => {%>
+                  <div class="row mt-2">
+                    <div class="col-lg-12">
+                      <div class="card" style="max-height:27rem; width: 18rem !important;">
+                        <div class="card-body scrollable-card">
+                          <h6 class="card-author text-light pb-3">
+                            <img src="<%- res.avatar %>" alt="Titre de l'image"
+                              style="margin-right:8px; border-radius:50%; height:50px !important; width:50px; object-fit: cover;">
+                            <strong><%- res.author %> - <%- res.date %></strong>
+                          </h6>
+                          <p class="card-text text-light">
+                            <strong><%- res.title.replace(/\\/g, '<br>' ) %></strong>
+                          <div class="description text-light"><%- res.description.replace(/\//g, '<br>' ).replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>") %></div>
+                          <% if(res.link.name !=="" && res.link.url !=="" ){ %>
+                            <a href="<%- res.link.url %>" style="text-decoration:none;"><%- res.link.name%></a>
+                            <% } %>
+                              <% if (res.image !=="" ){ %>
+                                <div class="d-flex justify-content-center">
+                                  <img class="card-img-top" src="<%- res.image %>" alt="Card image cap"
+                                    style="border-radius: 20px; margin: 10px 0; height:20vh !important; max-width:35rm;">
+                                </div>
+                                <% } %>
+                                  <% if(user){ %>
+                                    <form action="/" method="POST" style="position: absolute; bottom: 0; left: 0;opacity:0.5;">
+                                      <input type="hidden" name="data" value="<%- res.title %>" />
+                                      <button class="btn btn-danger mx-2 mb-2" type="submit">Supprimer</button>
+                                    </form>
+                                    <% } %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <%});%>
+              </div>
+          </section>
+        </main>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://kit.fontawesome.com/15198d5ddf.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="/js/script.js"></script>
+  </body>
+
+</html>

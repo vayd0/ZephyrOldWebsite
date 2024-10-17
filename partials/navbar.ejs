@@ -1,0 +1,72 @@
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">
+      <img
+        class="navbar-img"
+        src="https://cdn.discordapp.com/attachments/1125767159965032480/1126216603005091931/image-removebg-preview_1.png"
+        alt="Bootstrap"
+        width="70"
+        height="70"
+      />
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Zephyr</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/games">Crack</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/infos">Informations</a>
+        </li>
+        <%if(user) {%>
+        <li class="nav-item">
+          <a class="nav-link" href="/panel">Panel</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/news">News</a>
+        </li>
+        <% } %>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Liens
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/discord">Discord</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form action="post">
+        <%if(!user) {%>
+        <a class="btn btn-outline-secondary my-2 my-sm-0" href="/login">
+          Connexion
+        </a>
+        <% } else { %>
+        <a class="btn btn-outline-secondary my-2 my-sm-0" href="/logout">
+          Déconnexion
+        </a>
+        <% } %>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<div id="loader"></div>

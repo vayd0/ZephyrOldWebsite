@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html style="overflow-y: hidden !important">
+  <%- include("../partials/link.ejs") %>
+
+  <body>
+    <%- include ("../partials/navbar.ejs") %> <%- include
+    ("../partials/background.ejs") %>
+
+    <div class="mb-5 d-flex justify-content-center">
+      <div class="panel mx-auto w-75">
+        <div class="panel-body">
+          <div class="channel col-4 text-light">
+            <span class="tooltip-text">Zephyr</span>
+            <i class="fas fa-hashtag"
+              ><span class="chan-id">Mise à jour</span></i
+            >
+          </div>
+          <form action="/games/modify/update" method="post">
+            <small class="form-text text-light">Attention: le titre ne doit pas contenir les caractères < et >. ( Utilisez / pour aller a la ligne)</small>          
+            <input type="hidden" name="data" value="<%- game.name %>" />
+            <div class="form-group">
+              <label for="gameURL">URL de l'image</label>
+              <input
+                type="url"
+                class="form-control"
+                id="gameImage"
+                name="gameImage"
+                autocomplete="off"
+                value="<%- game.image %>"
+                pattern="^[^<>]+$"
+              />
+            </div>
+            <div id="imagePreview"></div>
+            <div class="form-group">
+              <label for="gameName">Nom du jeu</label>
+              <input
+                type="text"
+                class="form-control"
+                id="gameName"
+                name="gameName"
+                autocomplete="off"
+                value="<%- game.name %>"
+                pattern="^[^<>]+$"
+              />
+            </div>
+            <div class="form-group">
+              <label for="gameURL">URL de téléchargement</label>
+              <input
+                type="url"
+                class="form-control"
+                id="gameURL"
+                name="gameURL"
+                autocomplete="off"
+                value="<%- game.url %>"
+                pattern="^[^<>]+$"
+              />
+            </div>
+            <div class="form-group">
+              <label for="gameDescription">Description du jeu</label>
+              <textarea
+                class="form-control"
+                id="gameDescription"
+                rows="3"
+                name="gameDescription"
+                autocomplete="off"
+                pattern="^[^<>]+$"
+              >
+<%- game.description %></textarea
+              >
+            </div>
+
+            <div class="container">
+              <div class="select-btn">
+                <span class="btn-text">Catégories</span>
+                <span class="arrow-dwn">
+                  <i class="fa-solid fa-chevron-down"></i>
+                </span>
+              </div>
+              <ul class="list-items" id="gameList">
+                <li class="item">
+                  <span class="checkbox">
+                    <input
+                      class="check"
+                      type="checkbox"
+                      name="games"
+                      value="Jeu"
+                    />
+                  </span>
+                  <span class="item-text">Jeu</span>
+                </li>
+                <li class="item">
+                  <span class="checkbox">
+                    <input class="check" type="checkbox" name="games"
+                    value="Logiciel" <% if
+                    (game.categories.includes('Logiciel')) { %> checked <% } %>
+                    />
+                  </span>
+                  <span class="item-text">Logiciel</span>
+                </li>
+                <li class="item">
+                  <span class="checkbox">
+                    <input class="check" type="checkbox" name="games"
+                    value="Console" <% if (game.categories.includes('Console'))
+                    { %> checked <% } %> />
+                  </span>
+                  <span class="item-text">Console</span>
+                </li>
+                <li class="item">
+                  <span class="checkbox">
+                    <input
+                      class="check"
+                      type="checkbox"
+                      name="games"
+                      value="Apk" <% if (game.categories.includes('Apk'))
+                      { %> checked <% } %> />
+                  </span>
+                  <span class="item-text">APK</span>
+                </li>
+              </ul>
+            </div>
+
+            <script>
+              var imageInput = document.getElementById("gameImage");
+              var imagePreview = document.getElementById("imagePreview");
+
+              imagePreview.style.backgroundImage = "url('" + imageInput.value + "')";
+
+              imageInput.addEventListener("input", function () {
+                imagePreview.style.backgroundImage = "url('" + imageInput.value + "')";
+              });
+
+              window.addEventListener("DOMContentLoaded", function () {
+                const loader = document.getElementById("loader");
+                if (loader) {
+                  setTimeout(() => {
+                    loader.style.opacity = "0";
+                  }, 800);
+                  setTimeout(() => {
+                    loader.style.display = "none";
+                  }, 1300);
+                }
+
+                const selectBtn = document.querySelector(".select-btn");
+                const items = document.querySelectorAll(".item");
+                const gameList = document.getElementById("gameList");
+
+                if (selectBtn) {
+                  selectBtn.addEventListener("click", () => {
+                    selectBtn.classList.toggle("open");
+                  });
+                }
+
+                items.forEach((item) => {
+                  item.addEventListener("click", () => {
+                    item.classList.toggle("checked");
+                    const input = item.querySelector("input[name='games']");
+
+                    if (input) {
+                      input.checked = !input.checked;
+                    }
+
+                    updateCounter();
+                  });
+                });
+
+                updateCounter();
+
+                function updateCounter() {
+                  const checked = document.querySelectorAll(
+                    "input[name='games']:checked"
+                  );
+                  const btnText = document.querySelector(".btn-text");
+
+                  if (checked && checked.length > 0) {
+                    btnText.innerText = `${checked.length} sélectionné(s)`;
+                  } else {
+                    btnText.innerText = "Sélectionner un jeu";
+                  }
+                }
+              });
+            </script>
+
+            <button type="submit" class="btn btn-primary">Modifier</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div
+      class="custom__alert alert alert-warning alert-dismissible fade show"
+      role="alert"
+    >
+      Vous êtes entrain de modifier <%- game.name %>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script
+      src="https://kit.fontawesome.com/15198d5ddf.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </body>
+</html>

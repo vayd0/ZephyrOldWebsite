@@ -1,0 +1,35 @@
+<div class="card" id="<%- game.name.replace(/\s+/g, '').replace(/[^\w\s]/gi, '') %>" name="<%- game.categories %>" style="cursor: pointer" onclick="openModal('<%- game.name.replace(/\s+/g, '').replace(/[^\w\s]/gi, '') %>', '<%- game.url %>')">
+  <img src="<%- game.image %>" alt="<%- game.name %>" class="card-img-top" />
+  <div class="card-body">
+    <h4 class="card-title"><%- game.name %></h4>
+  </div>
+</div>
+
+<div class="modal fade" id="modal-<%- game.name.replace(/\s+/g, '').replace(/[^\w\s]/gi, '') %>" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="display: flex; align-items: center; height: 80vh;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><%- game.name %></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeModal('<%- game.name.replace(/\s+/g, '').replace(/[^\w\s]/gi, '') %>')" style="border: none; background:transparent; color: white;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%- game.description.replace(/\\/g, '<br>' ).replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>"); %>
+      </div>
+      <div class="modal-footer">
+        <% if(user){ %>
+          <form action="/games" method="POST">
+            <input type="hidden" name="data" value="<%- game.name %>" />
+            <button class="btn btn-danger" type="submit">Supprimer</button>
+          </form>
+          <form action="/games/modify" method="POST">
+            <input type="hidden" name="data" value="<%- game.name %>" />
+            <button class="btn btn-warning" type="submit">Modifier</button>
+          </form>
+        <% } %>
+        <a class="btn btn-success" type="button" href="<%- game.url %>">Télécharger</a>
+      </div>
+    </div>
+  </div>
+</div>
